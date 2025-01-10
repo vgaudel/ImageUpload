@@ -1,4 +1,6 @@
-﻿namespace ImageUpload
+﻿using ImageUpload.Models;
+
+namespace ImageUpload
 {
     public class Program
     {
@@ -6,7 +8,7 @@
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews()
-                .AddJsonOptions(o =>
+                .AddJsonOptions(o => // Ajout des options pour pouvoirutiliser Json dans le projet
             {
                 o.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 o.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -17,9 +19,12 @@
             app.UseStaticFiles();
             app.UseRouting();
 
+            FileService fs = new FileService();
+            fs.initBdd();
+
             app.UseEndpoints(endpoints => // Permet de redéfinir le routing
             {
-                endpoints.MapControllerRoute(  //Ajout d'une route par d�faut
+                endpoints.MapControllerRoute(  //Ajout d'une route par défaut
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

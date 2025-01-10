@@ -6,7 +6,7 @@ namespace ImageUpload.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index() //route GET pour ajouter un User avec une image
         {
             FileService fileService = new FileService();
 
@@ -14,7 +14,7 @@ namespace ImageUpload.Controllers
         }
 
         [HttpPost]
-        public void SaveFile(FileUpload fileObj)
+        public void SaveFile(FileUpload fileObj) //route POST pour récupérer un User avec une image
         {
             FileService fileService = new FileService();
 
@@ -33,7 +33,7 @@ namespace ImageUpload.Controllers
             }
         }
 
-        public IActionResult AllUsers()
+        public IActionResult AllUsers() // Route GET pour afficher l'ensemble des Users ajoutés
         {
             FileService fileService = new FileService();
 

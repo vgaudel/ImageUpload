@@ -19,6 +19,11 @@
             return this._bddContext.Users.Find(id);
         }
 
+        public void initBdd()
+        {
+            this._bddContext.InitializeDb();
+        }
+
         public User AddUser(User user)
         {
             Console.WriteLine("ajout User BDD");
