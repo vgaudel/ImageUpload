@@ -29,6 +29,7 @@
         $("#btnSave").click(function () {
             var files = $("#txtFile").prop("files");
             var formData = new FormData();
+            //Je construis l'objet de type FileUpload que je vais envoyer dans la requete HTTP POST
             for (var i = 0; i < files.length; i++) {
                 formData.append("file", files[i]);
             }
@@ -37,15 +38,16 @@
             }
             formData.append("User", JSON.stringify(oUser));
 
+            //Je lance la requete POST
             $.ajax({
                 type: "POST",
-                url: "/Home/SaveFile",
+                url: "/Home/SaveFile",//à modifier avec la route souhaitée (/Controller/Action)
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (data) {
                     ResetFields();
-                    alert(data);
+                    alert("Image correctement Uploadée");
                 },
                 error: function (data) {
                     console.log('Error:', data);
