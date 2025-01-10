@@ -1,0 +1,64 @@
+﻿@model List<ImageUpload.Models.User>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image</title>
+
+</head>
+<body>
+
+
+    <input id="txtName" type="text" placeholder="Nom User"/>
+    <input id="txtFile" type="file" value="Upload File" />
+
+    <button id="btnSave">Save info</button>
+
+
+    <img id="imgViewer" width="200" height="200" style="border:1px solid #000000" />
+
+    <script type="text/javascript" src="/js/jquery-3.7.1.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        $("#txtFile").change(function (event) {
+            var files = event.target.files;
+            $("#imgViewer").attr("src", window.URL.createObjectURL(files[0]));
+        });
+        $("#btnSave").click(function () {
+            var files = $("#txtFile").prop("files");
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append("file", files[i]);
+            }
+            var oUser = {
+                Name: $("#txtName").val()
+            }
+            formData.append("User", JSON.stringify(oUser));
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/SaveFile",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    ResetFields();
+                    alert(data);
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        });
+        function ResetFields() {
+            $("#txtName").val("");
+            $("#imgViewer").attr("src","");
+        }
+
+    </script>
+</body>
+</html>
+
+
